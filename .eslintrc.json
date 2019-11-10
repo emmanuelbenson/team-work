@@ -6,6 +6,7 @@
         "no-unused-vars": "warn",
         "func-names": "off",
         "object-shorthand": "off",
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "no-console": "off"
     }
 }
