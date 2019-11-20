@@ -1,4 +1,5 @@
 const assert = require('chai').assert;
+const chai = require('chai');
 const mocha = require('mocha');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
@@ -55,6 +56,29 @@ mocha.describe('User model', async () => {
         .catch(err => {
           assert.notExists(err);
         });
+    });
+  });
+
+  mocha.describe('When call assignRole', async () => {
+    mocha.it('Should return object with role_id', async () => {
+      const user = new User();
+      user.id = 1;
+      const roleId = 1;
+
+      const result = await user.assignRole(roleId);
+
+      chai.expect(result.rows[0]).to.have.property('role_id');
+    });
+  });
+
+  mocha.describe('When call role', async () => {
+    mocha.it('Should return role name as string', async () => {
+      const user = new User();
+      user.id = 1;
+
+      const result = await user.role();
+
+      chai.expect(result).to.be.equal('Admin');
     });
   });
 });

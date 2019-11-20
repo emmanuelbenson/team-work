@@ -1,6 +1,9 @@
 const pool = require('../db_config');
+const UserRole = require('../models/user-role');
+const Role = require('../models/role');
 
 function User() {
+  this.id = null;
   this.email = null;
   this.password = null;
   this.apiToken = null;
@@ -48,6 +51,41 @@ User.prototype.findByEmail = email => {
       .query(query, value)
       .then(result => {
         resolve(result);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+User.prototype.assignRole = async function(roleId) {
+  return new Promise((resolve, reject) => {
+    const userRole = new UserRole();
+    userRole.userId = this.id;
+    userRole.roleId = roleId;
+
+    userRole
+      .create()
+      .then(result => {
+        resolve(result);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+User.prototype.role = async function() {
+  return new Promise((resolve, reject) => {
+    const userRole = new UserRole();
+
+    userRole
+      .findByUserId(this.id)
+      .then(result => {
+        const role = new Role();
+        role.find(result.rows[0].role_id).then(res => {
+          resolve(res.rows[0].name);
+        });
       })
       .catch(err => {
         reject(err);

@@ -2,9 +2,17 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const User = require('../models/user.js');
+const UserRole = require('../models/user-role');
 
 exports.signIn = async (req, res) => {
   const { email, password } = req.body;
+  if (!email) {
+    return res.status(422).json({
+      status: 'error',
+      error: 'Email is required'
+    });
+  }
+
   if (email === '' || email.length === 0) {
     return res.status(422).json({
       status: 'error',
@@ -19,7 +27,7 @@ exports.signIn = async (req, res) => {
     });
   }
 
-  let user = new User();
+  const user = new User();
 
   const resultPromise = await user.findByEmail(email);
 
@@ -30,9 +38,9 @@ exports.signIn = async (req, res) => {
     });
   }
 
-  [user] = resultPromise.rows;
+  const [userObj] = resultPromise.rows;
 
-  const isPassword = await bcrypt.compare(password, user.password);
+  const isPassword = await bcrypt.compare(password, userObj.password);
 
   if (!isPassword) {
     return res.status(401).json({
@@ -41,16 +49,23 @@ exports.signIn = async (req, res) => {
     });
   }
 
+  user.id = userObj.id;
+
+  const userRolePromise = user.role();
+  const userRoleResponse = await userRolePromise;
+
   const token = jwt.sign(
-    { email: user.email, role: 1 },
+    { email: userObj.email, role: userRoleResponse },
     process.env.JWT_SECRET
   );
 
-  user.api_token = token;
-  delete user.password; // Removes the password property from the user object
+  userObj.roleName = userRoleResponse;
+
+  userObj.api_token = token;
+  delete userObj.password; // Removes the password property from the user object
 
   return res.status(200).json({
     status: 'success',
-    data: user
+    data: userObj
   });
 };

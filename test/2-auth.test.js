@@ -65,7 +65,8 @@ mocha.describe('API endpoints', () => {
               chai.assert.hasAllKeys(res.body.data, [
                 'id',
                 'email',
-                'api_token'
+                'api_token',
+                'roleName'
               ]);
             });
           done();
