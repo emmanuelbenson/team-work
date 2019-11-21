@@ -78,7 +78,7 @@ mocha.describe('User model', async () => {
 
       const result = await user.role();
 
-      chai.expect(result).to.be.equal('Admin');
+      chai.expect(result).to.be.equal('admin');
     });
   });
 });

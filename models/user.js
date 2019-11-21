@@ -83,6 +83,7 @@ User.prototype.role = async function() {
       .findByUserId(this.id)
       .then(result => {
         const role = new Role();
+
         role.find(result.rows[0].role_id).then(res => {
           resolve(res.rows[0].name);
         });
