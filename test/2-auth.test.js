@@ -35,7 +35,7 @@ mocha.describe('API endpoints', () => {
         password = '';
       });
 
-      mocha.it('Should return error (422)', async done => {
+      mocha.it('Should return error (422)', done => {
         chai
           .request(app)
           .post('/api/v1/auth/login')

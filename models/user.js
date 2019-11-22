@@ -11,7 +11,7 @@ function User() {
   this.updatedAt = null;
 }
 
-User.prototype.create = async function() {
+User.prototype.create = function() {
   return new Promise((resolve, reject) => {
     const query =
       'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *';
@@ -58,7 +58,7 @@ User.prototype.findByEmail = email => {
   });
 };
 
-User.prototype.assignRole = async function(roleId) {
+User.prototype.assignRole = function(roleId) {
   return new Promise((resolve, reject) => {
     const userRole = new UserRole();
     userRole.userId = this.id;
@@ -75,7 +75,7 @@ User.prototype.assignRole = async function(roleId) {
   });
 };
 
-User.prototype.role = async function() {
+User.prototype.role = function() {
   return new Promise((resolve, reject) => {
     const userRole = new UserRole();
 

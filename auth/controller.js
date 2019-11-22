@@ -54,7 +54,7 @@ exports.signIn = async (req, res) => {
   const userRoleResponse = await userRolePromise;
 
   const token = jwt.sign(
-    { email: userObj.email, userIs: userObj.id },
+    { email: userObj.email, userId: userObj.id, role: userRoleResponse },
     process.env.JWT_SECRET,
     { expiresIn: '1h' }
   );

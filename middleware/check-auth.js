@@ -2,36 +2,22 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 module.exports = (req, res, next) => {
-  const authHeader = req.get('Authorization');
-
-  if (!authHeader) {
-    req.isAuth = false;
-    return next();
-  }
-
-  const token = authHeader.split(' ')[1];
-
-  if (!token || token === '') {
-    req.isAuth = false;
-    return next();
-  }
-
-  let decodedToken;
-
   try {
-    decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-  } catch (error) {
-    req.isAuth = false;
-    return next();
-  }
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = decodedToken.userId;
+    req.email = decodedToken.email;
+    req.role = decodedToken.role;
+    req.isAuth = true;
 
-  if (!decodedToken) {
-    req.isAuth = false;
     return next();
-  }
+  } catch (err) {
+    console.error(err.message);
 
-  req.isAuth = true;
-  req.userId = decodedToken.userId;
-  req.email = decodedToken.email;
-  return next();
+    const error = new Error('Invalid user!');
+    return res.status(401).json({
+      status: 'error',
+      error: error.message
+    });
+  }
 };
