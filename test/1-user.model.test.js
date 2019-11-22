@@ -5,12 +5,12 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const pool = require('../db_config');
 
-mocha.describe('User model', async () => {
+mocha.describe('User model', () => {
   mocha.before(() => {
     pool.query('TRUNCATE TABLE users RESTART IDENTITY');
   });
 
-  mocha.describe('# create', async () => {
+  mocha.describe('# create', () => {
     mocha.it('Should create user', async () => {
       const user = new User();
       user.email = 'email1@example.com';
@@ -27,7 +27,7 @@ mocha.describe('User model', async () => {
     });
   });
 
-  mocha.describe('# find', async () => {
+  mocha.describe('# find', () => {
     mocha.it('Should find one user with id 1', async () => {
       const user = new User();
       const id = 1;
@@ -43,7 +43,7 @@ mocha.describe('User model', async () => {
     });
   });
 
-  mocha.describe('# findByEmail', async () => {
+  mocha.describe('# findByEmail', () => {
     mocha.it('Should find one user by email address', async () => {
       const user = new User();
       const email = 'email1@example.com';
@@ -59,7 +59,7 @@ mocha.describe('User model', async () => {
     });
   });
 
-  mocha.describe('When call assignRole', async () => {
+  mocha.describe('When call assignRole', () => {
     mocha.it('Should return object with role_id', async () => {
       const user = new User();
       user.id = 1;
@@ -71,14 +71,19 @@ mocha.describe('User model', async () => {
     });
   });
 
-  mocha.describe('When call role', async () => {
-    mocha.it('Should return role name as string', async () => {
+  mocha.describe('When call role', () => {
+    mocha.it('Should return role name equal admin', async () => {
       const user = new User();
       user.id = 1;
 
+      const roleAssignment = await user.assignRole(1);
+      if (!roleAssignment) {
+        throw new Error('Error assigning role');
+      }
+
       const result = await user.role();
 
-      chai.expect(result).to.be.equal('Admin');
+      chai.expect(result).to.be.equal('admin');
     });
   });
 });

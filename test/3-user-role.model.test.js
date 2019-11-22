@@ -9,7 +9,7 @@ mocha.describe('UserRole', () => {
   });
 
   mocha.describe('When instantiated', () => {
-    mocha.it('Should be an object', async () => {
+    mocha.it('Should be an object', () => {
       const userRole = new UserRole();
       chai.expect(userRole).to.be.an('object');
     });

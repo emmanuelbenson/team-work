@@ -5,7 +5,7 @@ function Role() {
   this.name = null;
 }
 
-Role.prototype.create = async function() {
+Role.prototype.create = function() {
   return new Promise((resolve, reject) => {
     const query = 'INSERT INTO roles(name) VALUES ($1) RETURNING *';
     const value = [this.name];
@@ -20,7 +20,7 @@ Role.prototype.create = async function() {
   });
 };
 
-Role.prototype.find = async function(id) {
+Role.prototype.find = function(id) {
   return new Promise((resolve, reject) => {
     const query = 'SELECT * FROM roles WHERE id = $1';
     const value = [id];
@@ -35,7 +35,7 @@ Role.prototype.find = async function(id) {
   });
 };
 
-Role.prototype.findByName = async function(name) {
+Role.prototype.findByName = function(name) {
   return new Promise((resolve, reject) => {
     const query = 'SELECT * FROM roles WHERE name = $1';
     const value = [name];

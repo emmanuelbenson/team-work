@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const User = require('../models/user.js');
-const UserRole = require('../models/user-role');
 
 exports.signIn = async (req, res) => {
   const { email, password } = req.body;
@@ -55,8 +54,9 @@ exports.signIn = async (req, res) => {
   const userRoleResponse = await userRolePromise;
 
   const token = jwt.sign(
-    { email: userObj.email, role: userRoleResponse },
-    process.env.JWT_SECRET
+    { email: userObj.email, userId: userObj.id, role: userRoleResponse },
+    process.env.JWT_SECRET,
+    { expiresIn: '1h' }
   );
 
   userObj.roleName = userRoleResponse;

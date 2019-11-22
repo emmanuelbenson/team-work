@@ -17,12 +17,16 @@ mocha.describe('Role', () => {
 
   mocha.describe('When call create() with name not empty', () => {
     mocha.it('Should return object with rowCount above 0', async () => {
-      const role = new Role();
-      role.name = 'Admin';
+      const empRole = new Role();
+      empRole.name = 'employee';
 
-      const newRole = await role.create();
+      const adminRole = new Role();
+      adminRole.name = 'admin';
 
-      chai.expect(newRole.rowCount).to.be.above(0);
+      const newAdminRole = await adminRole.create();
+      await empRole.create();
+
+      chai.expect(newAdminRole.rowCount).to.be.above(0);
     });
   });
 
@@ -39,7 +43,7 @@ mocha.describe('Role', () => {
   mocha.describe('When call findByName(name)', () => {
     let name;
     mocha.before(() => {
-      name = 'Admin';
+      name = 'admin';
     });
 
     mocha.it('Should select role with role.name equal name', async () => {

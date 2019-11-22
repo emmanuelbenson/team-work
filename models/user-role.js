@@ -5,7 +5,7 @@ function UserRole() {
   this.roleId = 0;
 }
 
-UserRole.prototype.create = async function() {
+UserRole.prototype.create = function() {
   return new Promise((resolve, reject) => {
     const query =
       'INSERT INTO users_roles (user_id, role_id) VALUES ($1, $2) RETURNING *';
@@ -21,7 +21,7 @@ UserRole.prototype.create = async function() {
   });
 };
 
-UserRole.prototype.findByUserId = async function(userId) {
+UserRole.prototype.findByUserId = function(userId) {
   return new Promise((resolve, reject) => {
     const query = 'SELECT * FROM users_roles WHERE user_id = $1';
     const value = [userId];
