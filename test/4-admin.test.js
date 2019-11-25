@@ -30,7 +30,7 @@ mocha.describe('Admin', () => {
         .post('/api/v1/admin/employee')
         .set(
           'Authorization',
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsMUBleGFtcGxlLmNvbSIsInVzZXJJZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTc0NDI0NTcyLCJleHAiOjE1NzQ0MjgxNzJ9.fSLFMQnU8WzfasWQn4ju9Ewy0btJJcPo718JpIe59Ng'
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsMUBleGFtcGxlLmNvbSIsInVzZXJJZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTc0NDQ3MDUwLCJleHAiOjE1NzQ1MzM0NTB9.3Le1DTkx_0yH5HFJAv8V5iT9Qz0bKpv8gtdq7-fSydI'
         )
         .send({
           email: 'emm@gmail.com',
@@ -49,7 +49,7 @@ mocha.describe('Admin', () => {
         .post('/api/v1/admin/employee')
         .set(
           'Authorization',
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hbnRjaGlAZ21haWwuY29tIiwidXNlcklkIjoyLCJyb2xlIjoiZW1wbG95ZWUiLCJpYXQiOjE1NzQ0MjQ2NTIsImV4cCI6MTU3NDQyODI1Mn0.jegb_Culsf55LDCqp-3SbRpcODdJ-iL9ACm6LHeqU4s'
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hbnRjaGlAZ21haWwuY29tIiwidXNlcklkIjoyLCJyb2xlIjoiZW1wbG95ZWUiLCJpYXQiOjE1NzQ0NDcwODIsImV4cCI6MTU3NDUzMzQ4Mn0.MZ5vO8tURZ4YHPV5HBNz0CphCAO5kr8lGAG4n5my9MA'
         )
         .send({
           email: 'emm@gmail.com',

@@ -1,14 +1,6 @@
 const queries = require('./queries');
 
 exports.createEmployee = (req, res) => {
-  if (!req.isAuth) {
-    const err = new Error('Forbidden!');
-    return res.status(403).json({
-      status: 'error',
-      error: err
-    });
-  }
-
   const { email, password } = req.body;
   queries
     .createEmployee(email, password)
